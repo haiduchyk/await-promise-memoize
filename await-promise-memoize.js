@@ -1,7 +1,5 @@
 'use strict';
 
-const fs = require('fs');
-
 const generateKey = args => (
   args.map(x => x.toString() + ':' + typeof(x)).join('|')
 );
