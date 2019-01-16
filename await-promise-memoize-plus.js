@@ -10,7 +10,7 @@ const memoize = (fn, time) => {
   const timers = {};
 
   const timeDeleteKey = key => timers[key] = setTimeout(() => {
-    console.dir('Del:' + key),
+    console.dir(`Delete :${key}`),
     cache.delete(key);
   }, time);
 
@@ -22,7 +22,7 @@ const memoize = (fn, time) => {
       if (cache.has(key)) {
         clearTimeout(timers[key]);
         timeDeleteKey(key);
-        console.log('From cache');
+        console.log('From cache:');
         cb(null, cache.get(key));
       } else {
         const promise = new Promise((resolve, reject) =>
@@ -30,7 +30,7 @@ const memoize = (fn, time) => {
             if (err) reject(err);
             else resolve(data);
           }));
-        console.log('Calculate');
+        console.log('Calculate:');
         try {
           const res = await promise;
           timeDeleteKey(key);
@@ -45,7 +45,7 @@ const memoize = (fn, time) => {
       if (cache.has(key)) {
         clearTimeout(timers[key]);
         timeDeleteKey(key);
-        console.log('From cache');
+        console.log('From cache:');
         return cache.get(key);
       }
       const promise = new Promise((resolve, reject) =>
@@ -53,7 +53,7 @@ const memoize = (fn, time) => {
           if (err) reject(err);
           else resolve(data);
         }));
-      console.log('Calculate');
+      console.log('Calculate:');
       const res = await promise;
       timeDeleteKey(key);
       cache.set(key, res);
@@ -87,6 +87,7 @@ const memoize = (fn, time) => {
     add(value, ...args) {
       const key = generateKey(args);
       cache.set(key, value);
+      console.log(`Add ${value} with key ${args}`);
       return this;
     }
   };

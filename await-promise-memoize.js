@@ -25,7 +25,7 @@ const memoize = fn => {
             cache.set(key, res);
             cb(null, res);
           } catch (err) {
-            cb(err, null)
+            cb(err)
           }
       }
     } else {
