@@ -13,7 +13,7 @@ const memoize = fn => {
       const cb = args.pop();
       const key = generateKey(args);
       if (cache.has(key)) {
-        console.log('From cache');
+        console.log('From cache:');
         cb(null, cache.get(key));
       } else {
         const promise = new Promise((resolve, reject) =>
@@ -21,7 +21,7 @@ const memoize = fn => {
             if (err) reject(err);
             else resolve(data);
           }));
-          console.log('Calculate');
+          console.log('Calculate:');
           try {
             const res = await promise;
             cache.set(key, res);
