@@ -16,7 +16,7 @@ const memoize = (fn, time) => {
 
   const memoized = async (...args) => {
 
-    if (typeof(args[args.length - 1]) === 'function') {
+    if (typeof args[args.length - 1] === 'function') {
       const cb = args.pop();
       const key = generateKey(args);
       if (cache.has(key)) {
